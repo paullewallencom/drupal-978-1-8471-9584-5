@@ -1,0 +1,98 @@
+Boost module HTACCESS tweaks per chapter 5, pages 11 - 14.
+
+
+
+
+Let’s make sure we take care of one tweak we need to carry out on our  .htaccess file.  We need to do this in order to make our Boost configuration work.  So far in this section on the Boost module this is the most complex configuration step we’ve taken.  Follow these steps in order to tweak your .htaccess (this is also explained in detail in the README file in the module folder):
+1.	Backup your original .htaccess file in your Drupal install directory so that you have a backup in case of issues.
+2.	Copy the custom generated htaccess rule from Administer > Site configuration > Performance > htaccess rules generation; or by clicking on the tab in your Performance section that says Boost htaccess rules generation
+3.	When you click on the button you’ll see a text box with the rules presented as a big block of code.  Copy this code out and paste it into your .htaccess (via editing mode in either FTP or cPanel).  The module help text here tells you to copy this rule and paste it below the # RewriteBase / and above the # Rewrite URLs of the form ‘x’ to the form ‘index.php?q=x’.
+So you should have something in your current .htaccess that looks like the following:
+# RewriteBase /
+------------ paste the rules here ------------
+
+#Rewrite URLs of the form ‘x’ to the form ‘index.php?q=x’.
+4.	Paste the code where it says to paste the rules here.  You want to make sure you look for the # RewriteBase / commented line of code and then paste in your rewrite rules immediately following that comment line.  Go ahead and do this now.
+The code were pasting in looks like this:
+  ### BOOST START ###
+  AddDefaultCharset utf-8
+  <FilesMatch "(\.html|\.xml)$">
+    <IfModule mod_headers.c>
+      Header set Expires "Sun, 19 Nov 1978 05:00:00 GMT"
+      Header set Cache-Control "no-store, no-cache, must-revalidate, post-check=0, pre-check=0"
+    </IfModule>
+  </FilesMatch>
+  <IfModule mod_mime.c>
+    AddCharset utf-8 .html
+    AddCharset utf-8 .xml
+    AddCharset utf-8 .css
+    AddCharset utf-8 .js
+  </IfModule>
+  <FilesMatch "\.html\.gz$">
+    ForceType text/html
+  </FilesMatch>
+  <FilesMatch "\.xml\.gz$">
+    ForceType text/xml
+  </FilesMatch>
+  <FilesMatch "\.css\.gz$">
+    ForceType text/css
+  </FilesMatch>
+  <FilesMatch "\.js\.gz$">
+    ForceType text/javascript
+  </FilesMatch>
+
+  # Gzip Cookie Test
+  RewriteRule boost-gzip-cookie-test\.html  cache/perm/boost-gzip-cookie-test\.html\.gz [L,T=text/html]
+
+  # NORMAL - Cached css & js files
+  RewriteCond %{DOCUMENT_ROOT}/fire/cache/perm/%{SERVER_NAME}%{REQUEST_URI}_\.css -s
+  RewriteRule .* cache/perm/%{SERVER_NAME}%{REQUEST_URI}_\.css [L,QSA,T=text/css]
+  RewriteCond %{DOCUMENT_ROOT}/fire/cache/perm/%{SERVER_NAME}%{REQUEST_URI}_\.js -s
+  RewriteRule .* cache/perm/%{SERVER_NAME}%{REQUEST_URI}_\.js [L,QSA,T=text/javascript]
+
+  # Caching for anonymous users
+  # Skip boost IF not get request OR uri has wrong dir OR cookie is set OR request came from this server OR https request
+  RewriteCond %{REQUEST_METHOD} !^GET$ [OR]
+  RewriteCond %{REQUEST_URI} (^/fire(admin|cache|misc|modules|sites|system|themes|node/add))|(/(comment/reply|edit|user|user/(login|password|register))$) [OR]
+  RewriteCond %{HTTP_COOKIE} DRUPAL_UID [OR]
+  RewriteCond %{REMOTE_ADDR} ^74\.220\.207\.144$ [OR]
+  RewriteCond %{HTTPS} on
+  RewriteRule .* - [S=2]
+
+  # NORMAL
+  RewriteCond %{DOCUMENT_ROOT}/fire/cache/normal/%{SERVER_NAME}%{REQUEST_URI}_%{QUERY_STRING}\.html -s
+  RewriteRule .* cache/normal/%{SERVER_NAME}%{REQUEST_URI}_%{QUERY_STRING}\.html [L,T=text/html]
+  RewriteCond %{DOCUMENT_ROOT}/fire/cache/normal/%{SERVER_NAME}%{REQUEST_URI}_%{QUERY_STRING}\.xml -s
+  RewriteRule .* cache/normal/%{SERVER_NAME}%{REQUEST_URI}_%{QUERY_STRING}\.xml [L,T=text/xml]
+
+  ### BOOST END ###
+
+Once it’s pasted in my .htaccess file I should see the code start below my #RewriteBase / and it will look like this (this is just an excerpt):
+# RewriteBase /
+  ### BOOST START ###
+  AddDefaultCharset utf-8
+  <FilesMatch "(\.html|\.xml)$">
+    <IfModule mod_headers.c>
+      Header set Expires "Sun, 19 Nov 1978 05:00:00 GMT"
+      Header set Cache-Control "no-store, no-cache, must-revalidate, post-check=0, pre-check=0"
+    </IfModule>
+  </FilesMatch>
+  <IfModule mod_mime.c>
+    AddCharset utf-8 .html
+    AddCharset utf-8 .xml
+    AddCharset utf-8 .css
+    AddCharset utf-8 .js
+  </IfModule>
+  <FilesMatch "\.html\.gz$">
+    ForceType text/html
+  </FilesMatch>
+  <FilesMatch "\.xml\.gz$">
+    ForceType text/xml
+  </FilesMatch>
+  <FilesMatch "\.css\.gz$">
+    ForceType text/css
+  </FilesMatch>
+  <FilesMatch "\.js\.gz$">
+    ForceType text/javascript
+  </FilesMatch>
+Refresh your Performance settings page in Drupal.  That’s it, you’re now ready to use the Boost module and start speeding up your page loads.  Let’s start using it as an anonymous user on our site.  

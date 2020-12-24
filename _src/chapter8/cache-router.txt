@@ -1,0 +1,15 @@
+cache router code for settings.php file per chapter 8, page. 3
+
+Go ahead and add the following code to your settings.php file:
+$conf['cacherouter'] = array(
+  'default' => array(
+    'engine' => 'memcache',
+    'server' => array('MYIP:MYPORT'),
+    'shared' => TRUE,
+    'prefix' => '',
+    'path' => 'sites/default/files/filecache',
+    'static' => FALSE,
+    'fast_cache' => TRUE,
+  ),
+);
+

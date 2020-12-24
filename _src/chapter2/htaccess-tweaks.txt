@@ -1,0 +1,39 @@
+These are htaccess file settings for chapter 2 page 29.
+
+Usually host servers provide multiple methods of tweaking your PHP settings in case you do not have permissions or access as a developer to the Drupal config file, the php.ini file or the .htaccess file.  In your .htaccess file you’ll look for the version of PHP you’re using (in this case PHP 5) and then look for the lines of php_value code that’s under this version.  For example this is what that set of values looks like in our .htaccess file:
+# PHP 5, Apache 1 and 2.
+<IfModule mod_php5.c>
+  php_value magic_quotes_gpc                0
+  php_value register_globals                0
+  php_value session.auto_start              0
+  php_value mbstring.http_input             pass
+  php_value mbstring.http_output            pass
+  php_value mbstring.encoding_translation   0
+</IfModule>
+
+
+You can add overrides for php memory_limit and upload_max_size here to the .htaccess file and then save your file.  Then refresh your Drupal status report and you should see your changes in effect.  Let’s go ahead and add a new upload_max_size value here since we want to increase our local value above the current 2MB default.
+To do this we’re going to add the following lines of code to our PHP5 section of our .htaccess file:
+
+
+php_value post_max_size 20M
+php_value upload_max_filesize 10M
+
+
+
+6.	Your .htaccess file code should now look similar to this:
+
+# PHP 5, Apache 1 and 2.
+<IfModule mod_php5.c>
+  php_value magic_quotes_gpc                0
+  php_value register_globals                0
+  php_value session.auto_start              0
+  php_value mbstring.http_input             pass
+  php_value mbstring.http_output            pass
+  php_value mbstring.encoding_translation   0
+  php_value post_max_size                   20M
+  php_value upload_max_filesize             10M
+
+</IfModule>
+
+

@@ -1,0 +1,35 @@
+This is the code corresponding to page 46 of chapter 1.  These 2 theme functions (in both the template.php
+and the theme-settings.php files need to have their function theme_ renamed to be function_apollo
+per instructions in chapter 1.
+
+
+Grab the template.php file and the theme-settings.php files from the STARTERKIT folder and move those to your local.  Rename any instance of STARTERKIT in those 2 files to apollo.  This includes the main function in template.php (function apollo_theme):
+
+/**
+ * Implementation of HOOK_theme().
+ */
+function apollo_theme(&$existing, $type, $theme, $path) {
+  $hooks = zen_theme($existing, $type, $theme, $path);
+  // Add your theme hooks like this:
+  /*
+  $hooks['hook_name_here'] = array( // Details go here );
+  */
+  // @TODO: Needs detailed comments. Patches welcome!
+  return $hooks;
+}
+
+This is the renamed function in theme-settings.php:
+
+function apollo_settings($saved_settings) {
+
+  // Get the default values from the .info file.
+  $defaults = zen_theme_get_default_settings('apollo');
+
+  // Merge the saved variables and their default values.
+  $settings = array_merge($defaults, $saved_settings);
+
+  /*
+   * Create the form using Forms API: http://api.drupal.org/api/6
+   */
+
+Once those functions are renamed, upload those 2 PHP files to your /apollo directory.

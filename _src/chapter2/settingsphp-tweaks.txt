@@ -1,0 +1,16 @@
+Drupal site settings.php file code per chapter 2, page 3.
+
+
+As this article states, the code you’ll use depends on whether you’re connecting to one database or multiple.  The default Drupal install will have one line of code:
+
+<?php
+$db_url = 'mysql://dbusername:dbuserpassword@localhost/dbname';
+?>
+
+If you are connecting to multiple databases you’ll want to add another db_url line of code.  Make your main Drupal database your default.  For example:
+
+<?php
+$db_url['default'] = 'mysql://dbusername:dbuserpassword@localhost/dbname';
+$db_url['db2'] = 'mysql://dbuser:pwd@localhost/anotherdbname';
+$db_url['db3'] = 'mysql://dbuser:pwd@localhost/yetanotherdbname';
+?>

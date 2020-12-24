@@ -1,0 +1,11 @@
+$conf = array code for memcache settings.php file per chapter 7, p.13
+
+Now let’s go ahead and tweak our settings.php file to change the $conf array to reference the other include file in our arsenal.  This will be the memcache.inc file.   Go ahead and comment out the memcache.db.inc file and then remove the comment before your memcache.inc file line of code.  
+Your settings.php $conf array should read the following:
+$conf = array(
+   // The path to wherever memcache.inc is. The easiest is to simply point it
+   // to the copy in your module's directory.
+  'cache_inc' => './sites/all/modules/memcache/memcache.inc',
+   // or
+    //'cache_inc' => './sites/all/modules/memcache/memcache.db.inc',
+);

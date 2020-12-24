@@ -1,0 +1,19 @@
+$db_url tweaks for multisite configuration per chapter 9, pages 7-8.
+
+Here we need to update the  $db_url to reference our  new _site1 database.  Here you will insert your database user, password and then the database name in this line of code in the settings.php file.  This site will have its own database but will share core resources with the main Drupal site configuration since those database tables have been copied over into the _site1 db.  Go ahead and change your db_url to:
+$db_url = 'mysqli://drupal6_site1:drupal@localhost/drupal6_site1';
+$db_prefix = '';
+
+Do the same for your /site2 settings.php file.  That site’s $db_url should read:
+$db_url = 'mysqli://drupal6_site2:drupal@localhost/drupal6_site2';
+$db_prefix = '';
+
+If you are installing multisites but sharing the additional sites with the main core Drupal site database you’ll need to reference the same $db_url but update your $db_prefix to note the additional site name.  This way you can share the same database but make sure each site has its own database table prefix.  That code would look like the following for site1:
+$db_url = 'mysqli://drupal6:drupal@localhost/drupal6';
+$db_prefix = 'site1_';
+
+This would be the site2 configuration:
+
+$db_url = 'mysqli://drupal6:drupal@localhost/drupal6';
+$db_prefix = 'site2_';
+

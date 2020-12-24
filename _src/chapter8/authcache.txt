@@ -1,0 +1,7 @@
+settings.php tweaks for Authcache module, per chapter 8, page. 5
+
+Then add the following lines of code to your file.  First to reference the Memcache API module we’re going to add this:
+$conf['memcache_servers']  = array('localhost:11211' => 'default');
+
+Then to reference our Authcache module we’ll add this:
+$conf['cache_inc'] = './sites/all/modules/authcache/authcache.inc';

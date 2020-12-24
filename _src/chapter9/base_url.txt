@@ -1,0 +1,10 @@
+$base_url tweaks, chapter 9, p. 10
+
+
+You should also make sure to tweak your Base URL setting in each of your site’s settings.php files.  Go ahead and open each settings.php file and look for the Base URL section.  You will need to uncomment the line of code that reads:
+$base_url = 'http://localhost';  // NO trailing slash!
+
+Make sure this has the URL address for your site.  So the above is for the main localhost site and the following are for your multisites (in their respective settings.php files):
+
+$base_url = 'http://site1';  // NO trailing slash!
+$base_url = 'http://site2';  // NO trailing slash!

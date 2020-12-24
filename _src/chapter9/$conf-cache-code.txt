@@ -1,0 +1,5 @@
+cache multisite code for settings.php file.
+
+Open your settings.php files and comment out the following lines (comment these out in each settings.php file):
+#$conf['memcache_servers']  = array('localhost:11211' => 'default');
+#$conf['cache_inc'] = './sites/all/modules/authcache/authcache.inc';

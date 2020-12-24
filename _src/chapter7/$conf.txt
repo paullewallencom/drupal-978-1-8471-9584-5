@@ -1,0 +1,13 @@
+$conf code for settings.php file per chapter 7, pages 8-9
+
+Update the $conf in your settings.php file to contain the following code:
+
+<?php
+$conf = array(
+   // The path to wherever memcache.inc is. The easiest is to simply point it
+   // to the copy in your module's directory.
+ //  'cache_inc' => './sites/all/modules/memcache/memcache.inc',
+   // or
+   'cache_inc' => './sites/all/modules/memcache/memcache.db.inc',
+);
+?>

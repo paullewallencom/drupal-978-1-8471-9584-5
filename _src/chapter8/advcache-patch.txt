@@ -1,0 +1,40 @@
+advanced cache patch, per chapter 8, page. 15
+
+To fix this you will need to apply the following patch per this troubleshooting document on drupal.org: http://drupal.org/node/430700
+Here’s the patch:
+--- advcache.install.bak	2009-04-11 11:00:19.000000000 +0200
++++ advcache.install	2009-04-11 11:02:22.000000000 +0200
+@@ -206,33 +206,3 @@
+   }
+ }
+ 
+-
+-function advcache_update_1() {
+-  switch ($GLOBALS['db_type']) {
+-    case 'mysql':
+-    case 'mysqli':
+-      $ret[] = update_sql("CREATE TABLE {cache_forum} (
+-        cid varchar(255) NOT NULL default '',
+-        data longblob,
+-        expire int NOT NULL default '0',
+-        created int NOT NULL default '0',
+-        headers text,
+-        PRIMARY KEY (cid),
+-        INDEX expire (expire)
+-      ) /*!40100 DEFAULT CHARACTER SET UTF8 */ ");
+-      break;
+-
+-    case 'pgsql':
+-      $ret[] = update_sql("CREATE TABLE {cache_forum} (
+-        cid varchar(255) NOT NULL default '',
+-        data bytea,
+-        expire int NOT NULL default '0',
+-        created int NOT NULL default '0',
+-        headers text,
+-        PRIMARY KEY (cid)
+-      )");
+-      db_query("CREATE INDEX {cache_forum}_expire_idx ON {cache_forum} (expire)");
+-      break;
+-  }
+-  return $ret;
+-}

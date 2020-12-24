@@ -1,0 +1,6 @@
+Triggered rule Execute custom PHP Code for chapter 6, page 10.
+
+3.	On the next screen in the PHP Code box copy and paste in the following code.  Remember here that you do not need to include the opening and closing PHP brackets <?php and ?>.
+global $base_root, $base_path;
+drupal_http_request($base_root . $base_path . 'cron.php');
+ 

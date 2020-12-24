@@ -1,0 +1,26 @@
+This is the Development module code that is shown on your View page per chapter 4, page. 16.
+
+You should also notice that the Devel db queries status is telling you that it’s using the cached results and cached output for the View build times and the MySQL statements.  You should see the following code sitting below your page content on the View page you are viewing.  It will resemble this:
+
+Views plugins build time: 23.509979248 ms
+
+Views data build time: 55.7069778442 ms
+
+Views handlers build time: 1.95503234863 ms
+
+SELECT node.nid AS nid,
+   node_data_field_photo_gallery_photo.field_photo_gallery_photo_fid AS node_data_field_photo_gallery_photo_field_photo_gallery_photo_fid,
+   node_data_field_photo_gallery_photo.field_photo_gallery_photo_list AS node_data_field_photo_gallery_photo_field_photo_gallery_photo_list,
+   node_data_field_photo_gallery_photo.field_photo_gallery_photo_data AS node_data_field_photo_gallery_photo_field_photo_gallery_photo_data,
+   node.type AS node_type,
+   node.vid AS node_vid,
+   node.title AS node_title,
+   node.created AS node_created
+ FROM {node} node 
+ LEFT JOIN {content_type_photo} node_data_field_photo_gallery_photo ON node.vid = node_data_field_photo_gallery_photo.vid
+ WHERE (node.status <> 0) AND (node.type in ('%s'))
+   ORDER BY node_created ASC
+
+Used cached results
+
+Used cached output

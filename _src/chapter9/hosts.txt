@@ -1,0 +1,6 @@
+hosts file tweaks per chapter 9, page. 10.
+
+Look for the hostname code at the bottom of the file and make sure it lists localhost as well as your multisites.  You should add the following if it’s not there already:
+127.0.0.1       localhost
+127.0.0.1       site1
+127.0.0.1       site2

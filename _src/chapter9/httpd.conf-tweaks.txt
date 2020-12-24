@@ -1,0 +1,44 @@
+httpd.conf file per chapter 9, pages 8-9
+
+
+Go ahead and open this .conf file in your text editor.  You will need to know what port your localhost is listening on.  Usually it’s port 80 but if you are not sure check your server configuration.  The default settings in the httpd.conf file should be correct.
+First look for the following code in your httpd.conf file and make sure it’s uncommented.  This code should be in Section 3: Virtual Hosts of your conf file.  We want the following uncommented:
+NameVirtualHost *:80
+
+Below this you will see some VirtualHost examples.  You can use the examples the configuration file provides and just make sure they are uncommented and have the correct settings per your configuration.  This is what the code should look like:
+<VirtualHost *:80>
+   DocumentRoot /www/drupal
+   ServerName localhost
+</VirtualHost>
+
+<VirtualHost 127.0.0.1:80>
+ServerName site1
+DocumentRoot "C:/www/drupal"
+    <Directory />
+      Options All
+      AllowOverride All
+     #Simply allow all directives to be overridden in .htaccess
+      Order allow,deny
+      Allow from localhost
+     #Only allow access from localhost
+    </Directory>
+</VirtualHost>
+
+<VirtualHost 127.0.0.1:80>
+ServerName site2
+DocumentRoot "C:/www/drupal"
+    <Directory />
+     Options All
+     AllowOverride All
+     #Simply allow all directives to be overridden in .htaccess
+      Order allow,deny
+      Allow from localhost
+     #Only allow access from localhost
+   </Directory>
+</VirtualHost>
+Make these code additions and tweaks and then save your httpd.conf file and close it.  Then stop your MoWeS Apache Web server and then restart it so the above changes take effect.
+Here’s what the above code does.  The first selection of code tells Apache to use localhost as the server and to set the document root for that server to the Drupal core site you have configured.  In this case the document root is /www/drupal.   This is reflected in this code excerpt:
+<VirtualHost *:80>
+   DocumentRoot /www/drupal
+   ServerName localhost
+</VirtualHost>

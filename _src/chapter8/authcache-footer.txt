@@ -1,0 +1,8 @@
+Authcache footer code, chapter 8, page. 11
+
+It should look like this and it will be commented out as the Authcache Footer JSON object:
+<!-- Authcache Footer JSON -->
+<script language="JavaScript">
+var authcacheFooter = { "info": { "page_render": 853.31, "page_queries": "75 queries @ 207.73 ms (24%)", "cache_render": "-1", "cache_uid": 0, "cache_inc": "memcache.inc", "cache_time": 1258139658, "node_author": "" }, "ajax": { "q": "node/8" } };
+</script>
+
